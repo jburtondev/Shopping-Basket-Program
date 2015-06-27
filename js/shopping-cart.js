@@ -21,6 +21,7 @@
  *
  */
 
+var mongodb = require('mongodb');
 
 
 var shoppingBasket = (function () {
