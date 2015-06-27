@@ -21,9 +21,6 @@
  *
  */
 
-var mongodb = require('mongodb');
-
-
 var shoppingBasket = (function () {
     "use strict";
 
@@ -37,10 +34,10 @@ var shoppingBasket = (function () {
 
     //Div which displays the amount of items
     var itemAmount = document.getElementById("amount-of-items");
-    
+
     //Total price of all items
     var totalPrice = 0;
-    
+
     //Div which displays the running total cost
     var runningTotalCost = document.getElementById("running-total-cost");
 
@@ -53,16 +50,16 @@ var shoppingBasket = (function () {
         window.mozRequestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.msRequestAnimationFrame;
-    
+
     var isBasketEmpty = function () {
-    
+
         //If basket is empty, tell the user
         if (basketItems.length == 0) {
 
             alert("Your basket is empty!");
 
         }
-    
+
     }
 
     //Fades an element into the page
@@ -93,8 +90,6 @@ var shoppingBasket = (function () {
 
     //Main title for Item
     Item.prototype.itemMainTitle = "";
-
-    console.log(Item.prototype.itemMainTitle);
 
     //Creates a new table for a new item
     var updateTable = function () {
@@ -133,8 +128,6 @@ var shoppingBasket = (function () {
             var desc = document.getElementById("desc-input").value;
             var price = parseInt(document.getElementById("price-input").value);
 
-            console.log(title, desc, price);
-
             //Validates if all fields are filled
 
                 if (title == null || title == "" || desc == null ||
@@ -155,10 +148,6 @@ var shoppingBasket = (function () {
                     //Creates new table for item
                     updateTable();
 
-                    console.log("tempItemList: " + tempItemList.length);
-                    console.log("basketItems: " + basketItems.length);
-                    console.log(basketItems);
-
                     return;
 
                 }
@@ -166,7 +155,7 @@ var shoppingBasket = (function () {
         },
 
         addToBasket: function () {
-            
+
             //Empties currentTempItem index
             var currentTempItem = 0;
 
@@ -175,9 +164,6 @@ var shoppingBasket = (function () {
 
             //Move to the next index in the array
             currentTempItem++;
-            
-
-            console.log(tempItemList);
 
             //Removes a basket-item from the DOM
             (function () {
@@ -187,15 +173,10 @@ var shoppingBasket = (function () {
 
                 item.parentNode.removeChild(item);
 
-                console.log("Item added to basket successfully");
-
             })();
 
             //Outputs/updates the itemAmount onto the screen
             itemAmount.innerHTML = basketItems.length;
-
-            console.log("Basket has " + basketItems.length + " items.");
-            console.log("tempItemList has " + tempItemList.length + " items.");
 
             tempItemList.length--;
 
@@ -210,7 +191,6 @@ var shoppingBasket = (function () {
 
                 //Sets the popupBox to visible
                 return basketBox.style.visibility = "visible";
-                console("Basket is now showing");
 
             }
 
@@ -219,14 +199,13 @@ var shoppingBasket = (function () {
 
         //Hides the basket
         hideBasket: function () {
-            
+
             isBasketEmpty();
 
             if (basketBox.style.visibility = "visible") {
 
                 //Sets the popupBox to hidden
                 return basketBox.style.visibility = "hidden";
-                console("Basket is now hidden");
 
             }
         },
@@ -236,7 +215,6 @@ var shoppingBasket = (function () {
 
             fadeIn(basketBox);
 
-            console.log("ShowBasket() pressed")
             this.displayBasket();
 
             //Stores table on page as table
@@ -244,8 +222,6 @@ var shoppingBasket = (function () {
 
             //Data within the table
             var popUpData = "";
-
-            console.log(tempItemList[0]);
 
             //If basket is empty, tell the user
             if (basketItems.length == 0) {
@@ -275,3 +251,4 @@ var shoppingBasket = (function () {
     };
 
 })();
+console.log(mongodb);
