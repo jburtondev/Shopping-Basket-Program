@@ -11,6 +11,7 @@ var database = (function () {
   return {
 
       addToRemoteBasket: function (item) {
+      db.push({
           title: item.title,
           desc: item.desc,
           price: item.price,
