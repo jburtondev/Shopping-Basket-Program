@@ -44,6 +44,12 @@ var shoppingBasket = (function () {
     //Div which hold the html to show the basket
     var basketBox = document.getElementById("pop-up-box");
 
+    //Basket DOM elements
+    var makeItemButton =  document.getElementById("cart-button-make-item");
+    var showBasketButton =  document.getElementById("cart-button-show-basket");
+    var updateBasketButton =  document.getElementById("cart-button-update-basket");
+    var hideBasketButton =  document.getElementById("cart-button-hide-basket");
+
     var currentPos = 0;
 
     var requestAnimationFrame = window.requestAnimationFrame ||
@@ -264,8 +270,20 @@ var shoppingBasket = (function () {
          console.log("The read failed: " + errorObject.code);
          });
 
-        }
+       },
+
+       //Assign events to DOM elements
+       initialiseEvents: function () {
+
+           makeItemButton.addEventListener("click", this.makeItem);
+           showBasketButton.addEventListener("click", this.showBasket);
+           updateBasketButton.addEventListener("click", this.updateBasket);
+           hideBasketButton.addEventListener("click", this.hideBasket);
+           
+       }
 
     };
 
 })();
+
+shoppingBasket.initialiseEvents();
