@@ -10,15 +10,21 @@ var database = (function () {
 
   return {
 
+      //Adds item to firebase database basket
       addToRemoteBasket: function (item) {
-      db.push({
-          title: item.title,
-          desc: item.desc,
-          price: item.price,
-          itemMainTitle: item.itemMainTitle
+          db.push({
+              title: item.title,
+              desc: item.desc,
+              price: item.price,
+              itemMainTitle: item.itemMainTitle
 
-     });
+          });
 
+      },
+
+      //Provides access to the private variable 'db'.
+      access: function () {
+        return db;
       }
 
   }

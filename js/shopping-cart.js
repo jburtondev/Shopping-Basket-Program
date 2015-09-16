@@ -159,8 +159,10 @@ var shoppingBasket = (function () {
             //Empties currentTempItem index
             var currentTempItem = 0;
 
-            //Adds item to the basket
+            //Calls method from database.js module to add item to basket
             database.addToRemoteBasket.call(this, tempItemList[currentTempItem]);
+
+            //Adds item to the basket
             basketItems.push(tempItemList[currentTempItem]);
 
             //Move to the next index in the array
@@ -248,6 +250,21 @@ var shoppingBasket = (function () {
             }
 
         },
+
+        updateBasket: function () {
+
+        //Empty basket
+        basketItems.length = 0;
+
+        //Update basket with firebase db Data
+        database.access().on("value", function(snapshot) {
+            console.log(snapshot.val());
+            basketItems.push(snapshot.val());
+         }, function (errorObject) {
+         console.log("The read failed: " + errorObject.code);
+         });
+
+        }
 
     };
 
