@@ -160,6 +160,8 @@ var shoppingBasket = (function () {
             var currentTempItem = 0;
 
             //Adds item to the basket
+            console.log(tempItemList[currentTempItem]);
+            database.addToRemoteBasket.call(this, tempItemList[currentTempItem]);
             basketItems.push(tempItemList[currentTempItem]);
 
             //Move to the next index in the array
@@ -251,4 +253,3 @@ var shoppingBasket = (function () {
     };
 
 })();
-console.log(mongodb);

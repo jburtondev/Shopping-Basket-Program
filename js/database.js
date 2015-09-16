@@ -1,33 +1,29 @@
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/shoppingBasket');
+/* Defines database interactions */
 
-var db = mongoose.connection;
+var database = (function () {
 
-db.on('error', function (err) {
-console.log('connection error', err);
-});
-db.once('open', function () {
-console.log('connected.');
-});
+  //----------Private objects----------//
 
-var Schema = mongoose.Schema;
-var userSchema = new Schema({
-  title : String,
-  desc : String,
-  price : Number,
-  isAlive : Boolean
-});
+  //Firebase server
+  var db = new Firebase("https://radiant-torch-9133.firebaseio.com/");
 
-var Item = mongoose.model('Item', userSchema);
 
-var bible = new Item({
-  title : 'Bible',
-  desc : 'The word of God',
-  price : 0,
-  isAlive : true
-});
+  return {
 
-bible.save(function (err, data) {
-if (err) console.log(err);
-else console.log('Saved : ', data );
-});
+      addToRemoteBasket: function (item) {
+
+      console.log("item is: " + item);
+
+      db.push({
+          title: item.title,
+          desc: item.desc,
+          price: item.price,
+          itemMainTitle: item.itemMainTitle
+
+     });
+
+      }
+
+  }
+
+})();
