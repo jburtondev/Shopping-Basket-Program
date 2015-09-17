@@ -221,10 +221,11 @@ var shoppingBasket = (function () {
 
         //Displays basketItems to the user
         showBasket: function () {
-
+            console.log(basketItems);
             fadeIn(basketBox);
 
-            this.displayBasket();
+            //Needs fixing, replace with bound 'this' context
+            shoppingBasket.displayBasket();
 
             //Stores table on page as table
             var popup = document.getElementById("pop-up-box");
@@ -264,10 +265,17 @@ var shoppingBasket = (function () {
 
         //Update basket with firebase db Data
         database.access().on("value", function(snapshot) {
-            console.log(snapshot.val());
-            basketItems.push(snapshot.val());
+
+            var basketObject = snapshot.val();
+
+            //Loop through and push items into array
+            for (var object in basketObject) {
+                console.log(basketObject[object]);
+                basketItems.push(basketObject[object]);
+            }
+
          }, function (errorObject) {
-         console.log("The read failed: " + errorObject.code);
+                alert("The read failed: " + errorObject.code);
          });
 
        },
@@ -279,7 +287,7 @@ var shoppingBasket = (function () {
            showBasketButton.addEventListener("click", this.showBasket);
            updateBasketButton.addEventListener("click", this.updateBasket);
            hideBasketButton.addEventListener("click", this.hideBasket);
-           
+
        }
 
     };

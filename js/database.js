@@ -22,9 +22,9 @@ var database = (function () {
 
       },
 
-      //Provides access to the private variable 'db'.
+      //Abstraction for firebase db access
       access: function () {
-        return db;
+          return db;
       }
 
   }
