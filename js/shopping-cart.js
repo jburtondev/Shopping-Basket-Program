@@ -166,7 +166,7 @@ var shoppingBasket = (function () {
             var currentTempItem = 0;
 
             //Calls method from database.js module to add item to basket
-            database.addToRemoteBasket.call(this, tempItemList[currentTempItem]);
+            database.addToRemoteBasket(tempItemList[currentTempItem]);
 
             //Adds item to the basket
             basketItems.push(tempItemList[currentTempItem]);
