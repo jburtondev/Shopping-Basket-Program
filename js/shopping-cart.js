@@ -177,9 +177,9 @@ var shoppingBasket = (function () {
             //Removes a basket-item from the DOM
             (function () {
 
-                //Assigns item to variable and removes it from the DOM
                 var item = document.getElementById("basket-item");
 
+                //Removes the 'basket-item' from DOM
                 item.parentNode.removeChild(item);
 
             })();
@@ -268,7 +268,7 @@ var shoppingBasket = (function () {
 
             var basketObject = snapshot.val();
 
-            //Loop through and push items into array
+            //Push firebase items into basket array
             for (var object in basketObject) {
                 console.log(basketObject[object]);
                 basketItems.push(basketObject[object]);
