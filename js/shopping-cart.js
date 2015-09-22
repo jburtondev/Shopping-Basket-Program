@@ -50,6 +50,13 @@ var shoppingBasket = (function () {
     var updateBasketButton =  document.getElementById("cart-button-update-basket");
     var hideBasketButton =  document.getElementById("cart-button-hide-basket");
 
+    //Overlay DOM element
+    var overlay = document.createElement("div");
+    overlay.id = "overlay";
+
+    //Proceed button
+    var proceedBtn = document.getElementById("answer-yes");
+
     var currentPos = 0;
 
     var requestAnimationFrame = window.requestAnimationFrame ||
@@ -62,7 +69,7 @@ var shoppingBasket = (function () {
         //If basket is empty, tell the user
         if (basketItems.length == 0) {
 
-            alert("Your basket is empty!");
+            alert("Your basket is empty! Fetch basket to get your live items.");
 
         }
 
@@ -74,10 +81,10 @@ var shoppingBasket = (function () {
 
         var last = +new Date();
         var tick = function () {
-            basketBox.style.opacity = +basketBox.style.opacity + (new Date() - last) / 400;
+            el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
             last = +new Date();
 
-            if (+basketBox.style.opacity < 1) {
+            if (+el.style.opacity < 1) {
                 (requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16)
             }
         };
@@ -119,7 +126,41 @@ var shoppingBasket = (function () {
 
         table.innerHTML = tableData;
 
-    }
+    };
+
+    var askUser = function (message, proceed) {
+
+        //Message box container
+        var messageBox = document.createElement("div");
+        messageBox.id = "ask-user";
+        //Message box text
+        var messageText = document.createTextNode(message);
+        overlay.appendChild(messageBox);
+        messageBox.appendChild(messageText);
+
+        //Proceed button
+        var yes = document.createElement("button");
+        var yesBtnText = document.createTextNode("Proceed");
+        yes.id = "answer-yes";
+        yes.appendChild(yesBtnText);
+        messageBox.appendChild(yes);
+
+        //Exit button
+        var noBtn = document.createTextNode("Exit");
+        var no = document.createElement("button");
+        no.id = "answer-no";
+        no.appendChild(noBtn);
+        messageBox.appendChild(no);
+
+        //Location in DOM to insert message box
+        var insertionPoint = document.getElementById("shopping-basket");
+        document.body.insertBefore(overlay, insertionPoint);
+
+        //Fade in message box
+        fadeIn(messageBox);
+
+    };
+
 
     return {
 
@@ -268,9 +309,11 @@ var shoppingBasket = (function () {
 
             var basketObject = snapshot.val();
 
+            console.log(askUser("Fetching basket items will replace your current basket"));
+            askUser("Fetching basket items will replace your current basket");
+
             //Push firebase items into basket array
             for (var object in basketObject) {
-                console.log(basketObject[object]);
                 basketItems.push(basketObject[object]);
             }
 
@@ -280,13 +323,32 @@ var shoppingBasket = (function () {
 
        },
 
+       //Removes both parent and child node of overlay
+       removeOverlay: function () {
+
+         var nodeParent = document.getElementById("overlay");
+         var nodeChild = document.getElementById("ask-user");
+
+         while (nodeParent.parentNode) {
+            nodeChild.parentNode.removeChild(nodeChild);
+            nodeParent.parentNode.removeChild(nodeParent);
+         }
+
+      },
+
        //Assign events to DOM elements
        initialiseEvents: function () {
 
+           //Cart buttons
            makeItemButton.addEventListener("click", this.makeItem);
            showBasketButton.addEventListener("click", this.showBasket);
            updateBasketButton.addEventListener("click", this.updateBasket);
            hideBasketButton.addEventListener("click", this.hideBasket);
+
+           //Popup
+           overlay.addEventListener("click", this.removeOverlay);
+
+           //proceed.overlay.addEventListener("click", this.removeOverlay);
 
        }
 
