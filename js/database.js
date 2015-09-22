@@ -1,31 +1,31 @@
 /* Defines database interactions */
 
-var database = (function () {
+var database = (function() {
 
   //----------Private objects----------//
 
   //Firebase server
-  var db = new Firebase("https://radiant-torch-9133.firebaseio.com/");
+  var db = new Firebase("https: //radiant-torch-9133.firebaseio.com/");
 
 
   return {
 
-      //Adds item to firebase database basket
-      addToRemoteBasket: function (item) {
-          db.push({
-              title: item.title,
-              desc: item.desc,
-              price: item.price,
-              itemMainTitle: item.itemMainTitle
+    //Adds item to firebase database basket
+    addToRemoteBasket: function(item) {
+      db.push({
+        title: item.title,
+        desc: item.desc,
+        price: item.price,
+        itemMainTitle: item.itemMainTitle
 
-          });
+      });
 
-      },
+    },
 
-      //Abstraction for firebase db access
-      access: function () {
-          return db;
-      }
+    //Abstraction for firebase db access
+    access: function() {
+      return db;
+    }
 
   }
 
