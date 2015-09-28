@@ -7,7 +7,6 @@ var database = (function() {
   //Firebase server
   var db = new Firebase("https: //radiant-torch-9133.firebaseio.com/");
 
-
   return {
 
     //Adds item to firebase database basket
